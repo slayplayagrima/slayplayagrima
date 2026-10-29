@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="14" viewBox="0 0 840 14">
+<defs>
+  <linearGradient id="base" x1="0" x2="1"><stop offset="0" stop-color="#4FA3FF" stop-opacity="0"/><stop offset=".15" stop-color="#4FA3FF" stop-opacity=".7"/><stop offset=".85" stop-color="#4FA3FF" stop-opacity=".7"/><stop offset="1" stop-color="#4FA3FF" stop-opacity="0"/></linearGradient>
+  <linearGradient id="spark" x1="0" x2="1"><stop offset="0" stop-color="#E6F3FF" stop-opacity="0"/><stop offset=".5" stop-color="#E6F3FF"/><stop offset="1" stop-color="#E6F3FF" stop-opacity="0"/></linearGradient>
+  <filter id="glow" x="-5%" y="-300%" width="110%" height="700%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect x="0" y="6" width="840" height="2" rx="1" fill="url(#base)" filter="url(#glow)"/>
+<rect x="-160" y="5.5" width="160" height="3" rx="1.5" fill="url(#spark)" filter="url(#glow)">
+  <animate attributeName="x" from="-160" to="840" dur="3.5s" repeatCount="indefinite"/>
+</rect>
+<circle cx="420" cy="7" r="2.5" fill="#E6F3FF" filter="url(#glow)"><animate attributeName="opacity" values=".4;1;.4" dur="2.5s" repeatCount="indefinite"/></circle>
+</svg>
