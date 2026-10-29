@@ -26,6 +26,36 @@ def fetch(login, token):
         raise SystemExit(f"GraphQL error: {data['errors']}")
     return data["data"]["user"]["contributionsCollection"]["contributionCalendar"]
 
+def fetch_public(login):
+    """Reads the public contribution calendar (no token needed)."""
+    import re
+    req = urllib.request.Request(f"https://github.com/users/{login}/contributions",
+                                 headers={"User-Agent": "profile-graph"})
+    html = urllib.request.urlopen(req).read().decode()
+    tips = {}
+    for m in re.finditer(r'<tool-tip[^>]*for="([^"]+)"[^>]*>([^<]*)', html):
+        txt = m.group(2).strip()
+        n = re.match(r"(\d[\d,]*) contribution", txt)
+        tips[m.group(1)] = int(n.group(1).replace(",", "")) if n else 0
+    names = ["NONE", "FIRST_QUARTILE", "SECOND_QUARTILE", "THIRD_QUARTILE", "FOURTH_QUARTILE"]
+    days = []
+    for m in re.finditer(r'data-date="([\d-]+)" id="([^"]+)" data-level="(\d)"', html):
+        d = datetime.date.fromisoformat(m.group(1))
+        days.append({"date": m.group(1), "contributionCount": tips.get(m.group(2), 0),
+                     "contributionLevel": names[int(m.group(3))], "weekday": (d.weekday() + 1) % 7})
+    if not days:
+        raise RuntimeError("no contribution cells found")
+    days.sort(key=lambda x: x["date"])
+    weeks, cur = [], []
+    for d in days:
+        if d["weekday"] == 0 and cur:
+            weeks.append({"contributionDays": cur}); cur = []
+        cur.append(d)
+    if cur: weeks.append({"contributionDays": cur})
+    t = re.search(r"([\d,]+)\s+contributions?\s+in the last year", html)
+    total = int(t.group(1).replace(",", "")) if t else sum(d["contributionCount"] for d in days)
+    return {"totalContributions": total, "weeks": weeks}
+
 def render(cal):
     CELL, GAP = 11, 3
     STEP = CELL + GAP
@@ -41,8 +71,7 @@ def render(cal):
             y = TOP + d["weekday"] * STEP
             c = LEVELS.get(d["contributionLevel"], LEVELS["NONE"])
             n = d["contributionCount"]
-            delay = f' style="animation-delay:{(wi*0.02):.2f}s"' if n else ""
-            cls = ' class="lit"' if n else ""
+            delay, cls = "", ""
             cells.append(f'<rect x="{x}" y="{y}" width="{CELL}" height="{CELL}" rx="2.5" fill="{c}"{cls}{delay}>'
                          f'<title>{n} contribution{"s" if n != 1 else ""} on {d["date"]}</title></rect>')
         first = datetime.date.fromisoformat(week["contributionDays"][0]["date"])
@@ -71,8 +100,6 @@ def render(cal):
 <style>
   .lbl{{font:11px {font};fill:#7FA6D6}}
   .ttl{{font:600 14px {font};fill:#EAF2FF}}
-  .lit{{animation:pop .6s ease-out both}}
-  @keyframes pop{{from{{opacity:0}}to{{opacity:1}}}}
 </style>
 <rect x="2" y="2" width="{W-4}" height="{H-4}" rx="12" fill="url(#bg)"/>
 <rect x="2" y="2" width="{W-4}" height="{H-4}" rx="12" fill="none" stroke="#4FA3FF" stroke-opacity=".5" stroke-width="2" filter="url(#glow)"/>
@@ -98,7 +125,11 @@ if __name__ == "__main__":
             weeks.append({"contributionDays": days})
         cal = {"totalContributions": 206, "weeks": weeks}
     else:
-        cal = fetch(login, os.environ["GITHUB_TOKEN"])
+        try:
+            cal = fetch_public(login)
+        except Exception as e:
+            print("public calendar failed, trying GraphQL:", e)
+            cal = fetch(login, os.environ["GITHUB_TOKEN"])
     os.makedirs(os.path.dirname(out) or ".", exist_ok=True)
     open(out, "w").write(render(cal))
     print("wrote", out)
