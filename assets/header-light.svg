@@ -321,13 +321,8 @@
   <circle r="5" fill="#D9E6F5"><animateMotion dur="14s" repeatCount="indefinite" path="M -150 -48 A 150 48 0 1 1 150 48 A 150 48 0 1 1 -150 -48"/></circle>
 </g>
 <rect width="840" height="320" fill="url(#vign)"/>
-<g class="float">
-  <path d="M60 44 h300 a14 14 0 0 1 14 14 v66 a14 14 0 0 1 -14 14 h-200 l-26 24 l4 -24 h-78 a14 14 0 0 1 -14 -14 v-66 a14 14 0 0 1 14 -14z" fill="#071226" fill-opacity=".82" stroke="#6FB6FF" stroke-opacity=".8" stroke-width="1.6"/>
-  <text x="210" y="77" text-anchor="middle" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#EAF2FF">Light mode? Brave explorer!</text>
-  <text x="210" y="99" text-anchor="middle" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" fill="#9DB9E0">The universe is still dark,</text>
-  <text x="210" y="119" text-anchor="middle" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" fill="#9DB9E0">we left the stars on for you ✦</text>
-</g>
-<text x="56" y="222" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="40" font-weight="800" fill="#EAF2FF">Hi, I'm Agrima <tspan fill="#6FB6FF">✦</tspan></text>
-<text x="58" y="254" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#A9D2FF">AI/ML Engineer · Full-Stack Builder · Quant Researcher</text>
-<text x="58" y="282" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" fill="#9DB9E0">Exploring the universe of data, one model at a time.</text>
+
+<text x="56" y="150" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="44" font-weight="800" fill="#EAF2FF">Hi, I'm Agrima <tspan fill="#6FB6FF">✦</tspan></text>
+<text x="58" y="188" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#A9D2FF">AI/ML Engineer · Full-Stack Builder · Quant Researcher</text>
+<text x="58" y="218" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="15" fill="#9DB9E0">Exploring the universe of data, one model at a time.</text>
 </g><rect x=".75" y=".75" width="838.5" height="318.5" rx="17.5" fill="none" stroke="#2E5A9C" stroke-width="1.5"/></svg>
