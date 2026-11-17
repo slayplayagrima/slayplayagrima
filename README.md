@@ -115,7 +115,7 @@ Exploratory analysis and income prediction modelling.<br/>
   <img src="https://streak-stats.demolab.com?user=slayplayagrima&background=0D1117&ring=6FB6FF&fire=A9D2FF&currStreakNum=EAF2FF&sideNums=EAF2FF&currStreakLabel=6FB6FF&sideLabels=9DB9E0&dates=9DB9E0&stroke=1E3A6E&hide_border=true" />
 </p>
 
-<p align="center"><img src="assets/contrib-calendar.svg" width="100%" alt="Contribution calendar" /></p>
+<!-- <p align="center"><img src="assets/contrib-calendar.svg" width="100%" alt="Contribution calendar" /></p> -->
 
 <br/>
 
